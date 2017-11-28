@@ -1,0 +1,21 @@
+{
+    "type": "panel",
+    "name": "TolleivDevPanel",
+    "id": "tolleiv-dev-panel",
+
+    "info": {
+    "description": "Panel for development",
+        "author": {
+        "name": "AOE GmbH",
+            "url": "http://aoe.com"
+    },
+    "keywords": ["panel"],
+        "version": "1.0.0",
+        "updated": "2017-11-24"
+},
+
+    "dependencies": {
+    "grafanaVersion": "3.x.x",
+        "plugins": [ ]
+}
+}
