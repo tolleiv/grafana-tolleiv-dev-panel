@@ -109,8 +109,6 @@ System.register(['app/plugins/sdk', 'lodash', 'moment', 'angular', 'app/core/tim
                         this.dataType = 'table';
                         var tableData = dataList.map(this.tableHandler.bind(this));
                         this.setTableValues(tableData, data);
-                        //console.log(tableData)
-                        console.log(data);
                         this.data = data;
                         this.render();
                     }
@@ -253,13 +251,11 @@ System.register(['app/plugins/sdk', 'lodash', 'moment', 'angular', 'app/core/tim
                         }
 
                         function render() {
-                            console.log('render');
                             if (!ctrl.data) {
                                 return;
                             }
                             data = ctrl.data;
                             elem.html(getBigValueHtml());
-                            console.log('render - done?');
                         }
 
                         this.events.on('render', function () {

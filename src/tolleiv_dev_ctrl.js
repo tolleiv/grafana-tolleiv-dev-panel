@@ -44,8 +44,6 @@ export class TolleivDevCtrl extends MetricsPanelCtrl {
     this.dataType = 'table';
     var tableData = dataList.map(this.tableHandler.bind(this));
     this.setTableValues(tableData, data);
-    //console.log(tableData)
-    console.log(data)
     this.data = data;
     this.render();
   }
@@ -178,11 +176,9 @@ export class TolleivDevCtrl extends MetricsPanelCtrl {
     }
 
     function render() {
-      console.log('render')
       if (!ctrl.data) { return; }
       data = ctrl.data;
       elem.html(getBigValueHtml());
-      console.log('render - done?')
     }
 
     this.events.on('render', function() {
