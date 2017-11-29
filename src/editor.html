@@ -4,58 +4,38 @@
 
     <div class="gf-form-inline">
       <div class="gf-form">
-        <label class="gf-form-label width-6">Column (1)</label>
+        <label class="gf-form-label width-6">Value</label>
         <div class="gf-form-select-wrapper width-12">
-          <select class="gf-form-input" ng-model="ctrl.panel.tableColumnOne" ng-options="f for f in ctrl.tableColumnOptions" ng-change="ctrl.refresh()"></select>
+          <select class="gf-form-input" ng-model="ctrl.panel.valueColumn" ng-options="f for f in ctrl.tableColumnOptions" ng-change="ctrl.refresh()"></select>
         </div>
         <label class="gf-form-label width-6">Font size</label>
         <div class="gf-form-select-wrapper">
-          <select class="gf-form-input" ng-model="ctrl.panel.valueOneFontSize" ng-options="f for f in ctrl.fontSizes" ng-change="ctrl.render()"></select>
+          <select class="gf-form-input" ng-model="ctrl.panel.valueFontSize" ng-options="f for f in ctrl.fontSizes" ng-change="ctrl.render()"></select>
         </div>
       </div>
     </div>
-    <div class="gf-form-inline">
-      <div class="gf-form">
-        <label class="gf-form-label width-6">Column (2)</label>
-        <div class="gf-form-select-wrapper width-12">
-          <select class="gf-form-input" ng-model="ctrl.panel.tableColumnTwo" ng-options="f for f in ctrl.tableColumnOptions" ng-change="ctrl.refresh()"></select>
-        </div>
-        <label class="gf-form-label width-6">Font size</label>
-        <div class="gf-form-select-wrapper">
-          <select class="gf-form-input" ng-model="ctrl.panel.valueTwoFontSize" ng-options="f for f in ctrl.fontSizes" ng-change="ctrl.render()"></select>
-        </div>
-      </div>
-    </div>
-    <div class="gf-form-inline">
-      <div class="gf-form">
-        <label class="gf-form-label width-6">Column (3)</label>
-        <div class="gf-form-select-wrapper width-12">
-          <select class="gf-form-input" ng-model="ctrl.panel.tableColumnThree" ng-options="f for f in ctrl.tableColumnOptions" ng-change="ctrl.refresh()"></select>
-        </div>
-        <label class="gf-form-label width-6">Font size</label>
-        <div class="gf-form-select-wrapper">
-          <select class="gf-form-input" ng-model="ctrl.panel.valueThreeFontSize" ng-options="f for f in ctrl.fontSizes" ng-change="ctrl.render()"></select>
-        </div>
-      </div>
-    </div>
-
     <div class="gf-form-inline">
       <div class="gf-form">
         <label class="gf-form-label width-6">Prefix</label>
-        <input type="text" class="gf-form-input width-12" ng-model="ctrl.panel.prefix" ng-change="ctrl.render()" ng-model-onblur>
+        <div class="gf-form-select-wrapper width-12">
+          <select class="gf-form-input" ng-model="ctrl.panel.prefixColumn" ng-options="f for f in ctrl.tableColumnOptions" ng-change="ctrl.refresh()"></select>
+        </div>
         <label class="gf-form-label width-6">Font size</label>
         <div class="gf-form-select-wrapper">
           <select class="gf-form-input" ng-model="ctrl.panel.prefixFontSize" ng-options="f for f in ctrl.fontSizes" ng-change="ctrl.render()"></select>
         </div>
       </div>
     </div>
-
-    <div class="gf-form">
-      <label class="gf-form-label width-6">Postfix</label>
-      <input type="text" class="gf-form-input width-12" ng-model="ctrl.panel.postfix" ng-change="ctrl.render()" ng-model-onblur>
-      <label class="gf-form-label width-6">Font size</label>
-      <div class="gf-form-select-wrapper">
-        <select class="input-small gf-form-input" ng-model="ctrl.panel.postfixFontSize" ng-options="f for f in ctrl.fontSizes" ng-change="ctrl.render()"></select>
+    <div class="gf-form-inline">
+      <div class="gf-form">
+        <label class="gf-form-label width-6">Postfix</label>
+        <div class="gf-form-select-wrapper width-12">
+          <select class="gf-form-input" ng-model="ctrl.panel.postfixColumn" ng-options="f for f in ctrl.tableColumnOptions" ng-change="ctrl.refresh()"></select>
+        </div>
+        <label class="gf-form-label width-6">Font size</label>
+        <div class="gf-form-select-wrapper">
+          <select class="gf-form-input" ng-model="ctrl.panel.postfixFontSize" ng-options="f for f in ctrl.fontSizes" ng-change="ctrl.render()"></select>
+        </div>
       </div>
     </div>
   </div>

@@ -11,18 +11,12 @@ export class TolleivDevCtrl extends MetricsPanelCtrl {
   constructor($scope, $injector) {
 
     var default_cfg = {
-      tableColumnOne: '',
-      tableColumnTwo: '',
-      tableColumnThree: '',
-
-      prefix: '',
+      prefixColumn: '',
       prefixFontSize: '50%',
-      postfix: '',
+      valueColumn: '',
+      valueFontSize: '100%',
+      postfixColumn: '',
       postfixFontSize: '50%',
-      valueMaps: [
-        { value: 'null', op: '=', text: 'N/A' }
-      ],
-      colorValue: false
     }
 
     super($scope, $injector);
@@ -50,7 +44,7 @@ export class TolleivDevCtrl extends MetricsPanelCtrl {
 
   tableHandler(tableData) {
     var datapoints_1 = [];
-    var columnNames_1 = {};
+    var columnNames_1 = { '': 'None' };
     tableData.columns.forEach(function (column, columnIndex) {
         columnNames_1[columnIndex] = column.text;
     });
@@ -86,89 +80,36 @@ export class TolleivDevCtrl extends MetricsPanelCtrl {
           return;
       }
       var datapoint = tableData[0][0];
-      data.valueOne = datapoint[this.panel.tableColumnOne];
-      if (_.isString(data.valueOne)) {
-          data.valueOneFormatted = _.escape(data.valueOne);
-          data.valueOne = 0;
-          data.valueOneRounded = 0;
-      }
-      data.valueTwo = datapoint[this.panel.tableColumnTwo];
-      if (_.isString(data.valueTwo)) {
-          data.valueTwoFormatted = _.escape(data.valueTwo);
-          data.valueTwo = 0;
-          data.valueTwoRounded = 0;
-      }
-      data.valueThree = datapoint[this.panel.tableColumnThree];
-      if (_.isString(data.valueThree)) {
-          data.valueThreeFormatted = _.escape(data.valueThree);
-          data.valueThree = 0;
-          data.valueThreeRounded = 0;
-      }
-
-
-      this.setValueMapping(data);
+      data.prefix = datapoint[this.panel.prefixColumn];
+      data.value = datapoint[this.panel.valueColumn];
+      data.postfix = datapoint[this.panel.postfixColumn];
   }
-  setValueMapping(data) {
-    for (var i = 0; i < this.panel.valueMaps.length; i++) {
-        var map = this.panel.valueMaps[i];
-        // special null case
-        if (map.value === 'null') {
-            if (data.value === null || data.value === void 0) {
-                data.valueFormatted = map.text;
-                return;
-            }
-            continue;
-        }
-        // value/number to text mapping
-        var value = parseFloat(map.value);
-        if (value === data.valueRounded) {
-            data.valueFormatted = map.text;
-            return;
-        }
-    }
-    
-    if (data.value === null || data.value === void 0) {
-        data.valueFormatted = "no value";
-    }
-  }
+
   link(scope, elem, attrs, ctrl) {
     var data = {}
     var panel = ctrl.panel;
     var templateSrv = this.templateSrv;
     elem = elem.find('.tolleiv-dev-panel');
 
-    function applyColoringThresholds(value, valueString) {
-      if (!panel.colorValue) {
-        return valueString;
-      }
-
-      var color = getColorForValue(data, value);
-      if (color) {
-        return '<span style="color:' + color + '">'+ valueString + '</span>';
-      }
-
-      return valueString;
-    }
-
     function getSpan(className, fontSize, value)  {
+      if (!_.isString(value)) {
+          return
+      }
       value = templateSrv.replace(value, data.scopedVars);
       return '<span class="' + className + '" style="font-size:' + fontSize + '">' +
-        value + '</span><br/>';
+        value + '</span> ';
     }
 
     function getBigValueHtml() {
       var body = '<div class="tolleiv-dev-panel-value-container singlestat-panel-value-container">';
 
-      if (panel.prefix) { body += getSpan('tolleiv-dev-panel-prefix singlestat-panel-prefix', panel.prefixFontSize, panel.prefix); }
+      if (data.prefix) { body += getSpan('tolleiv-dev-panel-prefix singlestat-panel-prefix', panel.prefixFontSize, data.prefix); }
 
-      var value = applyColoringThresholds(data.valueOne, data.valueOneFormatted);
-      body += getSpan('tolleiv-dev-panel-value', panel.valueOneFontSize, value);
-      var value = applyColoringThresholds(data.valueTwo, data.valueTwoFormatted);
-      body += getSpan('tolleiv-dev-panel-value', panel.valueTwoFontSize, value);
-      var value = applyColoringThresholds(data.valueThree, data.valueThreeFormatted);
-      body += getSpan('tolleiv-dev-panel-value', panel.valueThreeFontSize, value);
+      console.log(data)
 
-      if (panel.postfix) { body += getSpan('tolleiv-dev-panel-postfix  singlestat-panel-postfix', panel.postfixFontSize, panel.postfix); }
+      if (data.value) {  body += getSpan('tolleiv-dev-panel-value', panel.valueFontSize,   data.value); }
+
+      if (data.postfix) { body += getSpan('tolleiv-dev-panel-postfix  singlestat-panel-postfix', panel.postfixFontSize, data.postfix); }
 
       body += '</div>';
 
