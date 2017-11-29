@@ -11,7 +11,10 @@ export class TolleivDevCtrl extends MetricsPanelCtrl {
   constructor($scope, $injector) {
 
     var default_cfg = {
-      tableColumn: '',
+      tableColumnOne: '',
+      tableColumnTwo: '',
+      tableColumnThree: '',
+
       prefix: '',
       prefixFontSize: '50%',
       postfix: '',
@@ -85,18 +88,26 @@ export class TolleivDevCtrl extends MetricsPanelCtrl {
           return;
       }
       var datapoint = tableData[0][0];
-      data.value = datapoint[this.panel.tableColumn];
-      if (_.isString(data.value)) {
-          data.valueFormatted = _.escape(data.value);
-          data.value = 0;
-          data.valueRounded = 0;
+      data.valueOne = datapoint[this.panel.tableColumnOne];
+      if (_.isString(data.valueOne)) {
+          data.valueOneFormatted = _.escape(data.valueOne);
+          data.valueOne = 0;
+          data.valueOneRounded = 0;
       }
-      else {
-          var decimalInfo = this.getDecimalsForValue(data.value);
-          var formatFunc = kbn.valueFormats[this.panel.format];
-          data.valueFormatted = formatFunc(datapoint[this.panel.tableColumn], decimalInfo.decimals, decimalInfo.scaledDecimals);
-          data.valueRounded = kbn.roundValue(data.value, this.panel.decimals || 0);
+      data.valueTwo = datapoint[this.panel.tableColumnTwo];
+      if (_.isString(data.valueTwo)) {
+          data.valueTwoFormatted = _.escape(data.valueTwo);
+          data.valueTwo = 0;
+          data.valueTwoRounded = 0;
       }
+      data.valueThree = datapoint[this.panel.tableColumnThree];
+      if (_.isString(data.valueThree)) {
+          data.valueThreeFormatted = _.escape(data.valueThree);
+          data.valueThree = 0;
+          data.valueThreeRounded = 0;
+      }
+
+
       this.setValueMapping(data);
   }
   setValueMapping(data) {
@@ -144,18 +155,22 @@ export class TolleivDevCtrl extends MetricsPanelCtrl {
     function getSpan(className, fontSize, value)  {
       value = templateSrv.replace(value, data.scopedVars);
       return '<span class="' + className + '" style="font-size:' + fontSize + '">' +
-        value + '</span>';
+        value + '</span><br/>';
     }
 
     function getBigValueHtml() {
-      var body = '<div class="tolleiv-dev-panel-value-container">';
+      var body = '<div class="tolleiv-dev-panel-value-container singlestat-panel-value-container">';
 
-      if (panel.prefix) { body += getSpan('tolleiv-dev-panel-prefix', panel.prefixFontSize, panel.prefix); }
+      if (panel.prefix) { body += getSpan('tolleiv-dev-panel-prefix singlestat-panel-prefix', panel.prefixFontSize, panel.prefix); }
 
-      var value = applyColoringThresholds(data.value, data.valueFormatted);
-      body += getSpan('tolleiv-dev-panel-value', panel.valueFontSize, value);
+      var value = applyColoringThresholds(data.valueOne, data.valueOneFormatted);
+      body += getSpan('tolleiv-dev-panel-value', panel.valueOneFontSize, value);
+      var value = applyColoringThresholds(data.valueTwo, data.valueTwoFormatted);
+      body += getSpan('tolleiv-dev-panel-value', panel.valueTwoFontSize, value);
+      var value = applyColoringThresholds(data.valueThree, data.valueThreeFormatted);
+      body += getSpan('tolleiv-dev-panel-value', panel.valueThreeFontSize, value);
 
-      if (panel.postfix) { body += getSpan('tolleiv-dev-panel-postfix', panel.postfixFontSize, panel.postfix); }
+      if (panel.postfix) { body += getSpan('tolleiv-dev-panel-postfix  singlestat-panel-postfix', panel.postfixFontSize, panel.postfix); }
 
       body += '</div>';
 
