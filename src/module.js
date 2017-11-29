@@ -1,5 +1,5 @@
-import {ClockCtrl} from './clock_ctrl';
+import {TolleivDevCtrl} from './tolleiv_dev_ctrl';
 
 export {
-  ClockCtrl as PanelCtrl
+  TolleivDevCtrl as PanelCtrl
 };
