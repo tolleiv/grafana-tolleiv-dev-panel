@@ -11,12 +11,15 @@ export class TolleivDevCtrl extends MetricsPanelCtrl {
   constructor($scope, $injector) {
 
     var default_cfg = {
+      containerStyle: '',
       prefixColumn: '',
       prefixFontSize: '50%',
+      prefixBreak: false,
       valueColumn: '',
       valueFontSize: '100%',
       postfixColumn: '',
       postfixFontSize: '50%',
+      postfixBreak: false,
     }
 
     super($scope, $injector);
@@ -102,13 +105,10 @@ export class TolleivDevCtrl extends MetricsPanelCtrl {
 
     function getBigValueHtml() {
       var body = '<div class="tolleiv-dev-panel-value-container singlestat-panel-value-container">';
-
       if (data.prefix) { body += getSpan('tolleiv-dev-panel-prefix singlestat-panel-prefix', panel.prefixFontSize, data.prefix); }
-
-      console.log(data)
-
+      if (panel.prefixBreak) { body += '<br/>' }
       if (data.value) {  body += getSpan('tolleiv-dev-panel-value', panel.valueFontSize,   data.value); }
-
+      if (panel.postfixBreak) { body += '<br/>' }
       if (data.postfix) { body += getSpan('tolleiv-dev-panel-postfix  singlestat-panel-postfix', panel.postfixFontSize, data.postfix); }
 
       body += '</div>';
